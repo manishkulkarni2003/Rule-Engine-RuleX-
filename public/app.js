@@ -16,6 +16,29 @@ function createRule() {
             displayResult(`Error Creating rule:${err.message}`)
         })
 }
+//function for update rule 
+
+// function updateRule() {
+//     const ruleId = document.getElementById('updateRuleId').value;
+//     const ruleString = document.getElementById('ruleInput').value;
+
+//     fetch('/api/rules/update', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ ruleString })
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             displayResult(`Rule Updated:${JSON.stringify(data)}`)
+//         })
+//         .catch(err => {
+//             displayResult(`Error Updating rule:${err.message}`)
+//         })
+// }
+
+
 
 //function to combine rules
 

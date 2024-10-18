@@ -43,25 +43,24 @@ function combine_rules(ruleAsts) {
 function evaluate_rule(ast, data) {
     if (!ast) return false;
 
-    // Handling 'operand' nodes (e.g., age > 30)
+
     if (ast.type === 'operand') {
         const condition = ast.value;
 
-        // Split the condition into attribute, operator, and value
+
         const [attribute, operator, value] = condition.split(' ');
 
-        // Get the value from the data (e.g., age, salary, etc.)
         const leftValue = data[attribute];
 
         // Handle numbers and strings for the comparison
         let rightValue = value;
         if (!isNaN(value)) {
-            rightValue = Number(value);  // Convert to number if it's a numeric value
+            rightValue = Number(value);
         } else {
             rightValue = value.replace(/['"]/g, '');  // Remove quotes for string comparison
         }
 
-        // Perform the comparison based on the operator
+
         switch (operator) {
             case '>':
                 return leftValue > rightValue;

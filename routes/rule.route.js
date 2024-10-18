@@ -18,6 +18,31 @@ router.post('/api/rules', async (req, res) => {
         res.status(400).json({ message: "error While Creating rule", error })
     }
 })
+// router.post('/api/rules/update', async (req, res) => {
+//     const { ruleIds, ruleString } = req.body;
+
+//     try {
+//         
+//         const rules = await Rule.find({ _id: { $in: ruleIds } });
+
+//         
+//         if (!rules || rules.length === 0) {
+//             return res.status(404).json({ message: "Rules not found" });
+//         }
+
+//         
+//         for (let rule of rules) {
+//             rule.ruleString = ruleString; 
+//             await rule.save(); // Save the updated rule to the database
+//         }
+
+//         res.status(200).json({ message: "Rules Updated Successfully" });
+//     } catch (err) {
+//         console.error("Error while updating the rules:", err);
+//         res.status(500).json({ message: "Error While Updating the Rules", error: err.message });
+//     }
+// });
+
 
 router.post('/api/rules/combine', async (req, res) => {
     const { ruleIds } = req.body;//it give an array of ids
@@ -56,7 +81,7 @@ router.post('/api/rules/evaluate', async (req, res) => {
         console.log(ruleAst, result);
         // res.send(result);
         // const isEligible = evaluate_rule(rule.ruleAst, userData);
-        res.status(200).json({ message: "Rule Evaluted" })
+        return res.status(200).json({ message: "Rule Evaluted" })
 
     } catch (error) {
         console.log(error)
