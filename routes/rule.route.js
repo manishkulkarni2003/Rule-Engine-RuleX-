@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require("mongoose");
 const router = express.Router();
 const Rule = require("../models/rule.model")
 const { create_rule, combine_rules, evaluate_rule } = require("../Controllers/ruleEngine.controller")
@@ -27,7 +28,7 @@ router.post('/api/rules/combine', async (req, res) => {
 
         const rules = await Rule.find({ _id: { $in: ruleIds } });
 
-        const ruleAsts = rules.map(rule => ruleAst);//ruleAst is a object
+        const ruleAsts = rules.map(rule => rule.ruleAst);//ruleAst is a object
 
         const combinedAst = combine_rules(ruleAsts);
 
@@ -42,6 +43,7 @@ router.post('/api/rules/evaluate', async (req, res) => {
     const { ruleId, userData } = req.body;
 
     try {
+        // const validRuleId = mongoose.Types.ObjectId(ruleId);
         const rule = await Rule.findById(ruleId);
 
         if (!rule) {
@@ -54,10 +56,10 @@ router.post('/api/rules/evaluate', async (req, res) => {
         console.log(ruleAst);
 
         // const isEligible = evaluate_rule(rule.ruleAst, userData);
-        res.json({ message: "Rule Evaluted" }, result)
+        res.json({ message: "Rule Evaluted" })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "Error While Evaluating the Rule", error })
+        res.status(400).json({ message: "Error While Evaluating the Rule", error })
     }
 
 

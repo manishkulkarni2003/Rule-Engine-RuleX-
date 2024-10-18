@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const ruleSchema = new mongoose.Schema({
-    _id: {
-        type: String,
-        // required: true
-    },
+    // _id: {
+    //     type: String,
+    //     required: true
+    // },
     ruleAst: {
         type: Object
     },

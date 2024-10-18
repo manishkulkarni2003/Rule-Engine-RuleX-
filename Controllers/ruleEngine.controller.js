@@ -43,18 +43,45 @@ function combine_rules(ruleAsts) {
 function evaluate_rule(ast, data) {
     if (!ast) return false;
 
-
+    // Handling 'operand' nodes (e.g., age > 30)
     if (ast.type === 'operand') {
-        //condition of age>30
         const condition = ast.value;
-        return eval(condition.replace('age', data.age)
-            .replace('department', `${data.department}`)
-            .replace('salary', data.salary)
-            .replace('experience', data.experience)
 
-        );
+        // Split the condition into attribute, operator, and value
+        const [attribute, operator, value] = condition.split(' ');
+
+        // Get the value from the data (e.g., age, salary, etc.)
+        const leftValue = data[attribute];
+
+        // Handle numbers and strings for the comparison
+        let rightValue = value;
+        if (!isNaN(value)) {
+            rightValue = Number(value);  // Convert to number if it's a numeric value
+        } else {
+            rightValue = value.replace(/['"]/g, '');  // Remove quotes for string comparison
+        }
+
+        // Perform the comparison based on the operator
+        switch (operator) {
+            case '>':
+                return leftValue > rightValue;
+            case '<':
+                return leftValue < rightValue;
+            case '>=':
+                return leftValue >= rightValue;
+            case '<=':
+                return leftValue <= rightValue;
+            case '==':
+            case '=':  // Handle both equality operators
+                return leftValue == rightValue;
+            case '!=':
+                return leftValue != rightValue;
+            default:
+                throw new Error(`Unsupported operator: ${operator}`);
+        }
     }
 
+    // Handling 'operator' nodes (e.g., AND/OR)
     if (ast.type === 'operator') {
         const leftResult = evaluate_rule(ast.left, data);
         const rightResult = evaluate_rule(ast.right, data);
@@ -65,10 +92,9 @@ function evaluate_rule(ast, data) {
         if (ast.value === 'OR') {
             return leftResult || rightResult;
         }
-
     }
+
     return false;
-
-
 }
+
 module.exports = { create_rule, combine_rules, evaluate_rule }
