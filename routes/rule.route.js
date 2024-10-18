@@ -53,10 +53,11 @@ router.post('/api/rules/evaluate', async (req, res) => {
 
         const ruleAst = rule.ruleAst;
         const result = evaluate_rule(ruleAst, userData);
-        console.log(ruleAst);
-
+        console.log(ruleAst, result);
+        // res.send(result);
         // const isEligible = evaluate_rule(rule.ruleAst, userData);
-        res.json({ message: "Rule Evaluted" })
+        res.status(200).json({ message: "Rule Evaluted" })
+
     } catch (error) {
         console.log(error)
         res.status(400).json({ message: "Error While Evaluating the Rule", error })

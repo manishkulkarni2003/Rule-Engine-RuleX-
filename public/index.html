@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuleX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>RuleX</h1>
+
+        <section>
+            <h2>Create a new Rule</h2>
+            <input type="text" id="ruleInput" placeholder="Enter a Rule(eg:age > 30 AND department = 'Sales')" />
+            <button onclick="createRule()">Create Rule</button>
+        </section>
+
+        <section>
+            <h2>Combine Rules</h2>
+            <textarea id="ruleIdsInput" placeholder="Enter the Rule Ids seperated by commas"></textarea>
+            <button onclick="combineRules()">Combine Rules</button>
+        </section>
+
+        <section>
+            <h2>Evaluate Rule</h2>
+            <input type="text" id="evaluateRuleId" placeholder="Enter Rule ID">
+            <textarea id="userData"
+                placeholder="Enter user data JSON (eg:{age:35,department:sales in json format})"></textarea>
+            <button onclick="evaluateRule()">Evaluate</button>
+        </section>
+
+        <section id="resultSection">
+            <h2>Result</h2>
+            <pre id="resultOutput"></pre>
+        </section>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
